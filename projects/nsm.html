@@ -1,0 +1,66 @@
+<html>
+	<head>
+        <link rel="stylesheet" href="../main.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+        
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+    <title>Joe Cleveland / Projects</title>
+	</head>
+	<body>
+        <div class="container">
+            <div class="item header"><a href="../index.html">Joe Cleveland</a> / Projects</div>
+            <div class="item menu">
+                <br>
+                <a href="../projects.html">PROJECTS</a>
+                <a href="../resume.pdf">RESUME</a>
+                <a href="https://josephcleveland.bandcamp.com">MUSIC</a>
+            </div>
+            <div class="item content">
+                <h1>Neural Synthesis Models</h1>
+                <p>
+                I've always been fascinated by analog synthesizers. Like acoustic instruments, they have an organic unpredictability that a skilled player can learn to control, but will continue to provide new possibilites and sounds to explore for years. Digital synthesizers provide just as much ability to control the timbre, but do so with a rigid set of controls that seem more appropriate for engineers than artists. The controls to a synthesizer must provide enough variation that the artist can develope a truely unique sound, but too much control makes the sound design process tedious. The most expressive synthesizers have a limited number of controls which effect the sound in complex non-linear ways. Such instruments feel more like interactive physical systems than digital algorithms.     
+            </p>
+            <p>
+            Neural networks are good candidates for creating dynamic expressive instruments. Generative audio models like Wavenet and SampleRNN have outperformed traditional vocoders in generating realistic human speech. NSynth, which is an autoencoder based on the Wavenet architecture, can produce instrument sounds comparable to the best physical models. Unfortunatley, these models are computationaly expensive, and can only be made to run in real-time by sacrificing output quality. However, although hyperrealism is important for speech synthesis, I believe many expressive and interesting virtual instruments can be created with simple neural models. With a focus on artistic flexibility over performing well on benchmarks, I explore neural models that can run in real-time on modest hardware. 
+            </p>
+            <h2>Predicting Samples Autoregressively </h2>
+            <p>
+            Wavenet is a type of <i>autoregressive model</i>. In an autoregressive model, each sample is conditioned on all previous samples: 
+            $$ x_t = \mathbb{E}[p(x_t | x_1 ... x_{t-1})] $$ 
+
+
+            A very simple autoregressive model can be implemented with a basic fully-connected neural network, with \( x_1 ... x_{t-1} \) as inputs, and \( x_t \) as the single output. Of course, we must choose a fixed sized for the input layer, therefore our output is not really conditioned on all previous samples but a finite <i>receptive field</i> of our choosing. A longer receptive field will let the network learn longer term structure, but will be more computationally intensive.
+            </p>
+            <p>
+            As a loss function, we could simply use Mean Squared Error between the predicted sample and the next sample in the training data. However it is standard practice to instead quantize each sample and use a softmax as the final layer of the network. Now, each possible output value is represented as part of a probability distribution, and we can use a cross-entropy loss function. In the Wavenet paper they found this to provide better results. This also lets us use biased sampling techniques, meaning post-training we can decide to retrieve samples which are more varied, or more uniform. 
+            </p>
+            <p>
+            As an example, I've implemented  such a network with a receptive field of 64 samples. First lets try training the model using simple sine waves as samples and see if it can pick up on the periodicity. <b>Audio coming soon</b><br>
+            As you can hear the sound quickly strays away from the original waveform. In part this is due to the short receptive field, but it is also because we have trained the network with <i>teacher forcing</i>. This means that the model only ever sees data from the training set. However, to sample from the model contiuously we must feed its own output back into itself, which may contain errors it wasn't exposed to during training. Although teacher forcing helps the model learn quickly, when the model makes errors, they compound very quickly. To combat this, we can regularize by adding some white noise to the input.
+            </p>
+            <p>
+            Training on sine waves is a good proof of concept, but it isn'tvery interesting. Here are samples of a larger model trained on samples from the NSynth dataset: <b>Audio coming soon</b> 
+            </p>
+            <h2>Predicting Frames in the Frequency Domain</h2>
+            <p>
+            Generating audio autoregressivley at the sample level is slow, since we require one forward pass through the network per sample. To take advantage of parallel processing, we can greatly speed this up by generating audio in frames. It is also helpful to use frames of the <i>Short-Time Fourier Transform (STFT)</i> as opposed to frames of raw waveforms. When we use the STFT, the network learns the change in the magnitude of certain frequencies over time, instead of needing to learn the detailed structure of the waveform. This can often be represented with simple exponentials or low-frequency periodic functions, which is advantageous, as neural networks have a <i> spectral bias</i> towards low-frequnecy functions.  
+            </p>
+            <p>
+            Note that now each sample is no longer conditioned on previous samples within the same frame. Instead, the frequency spectrum of a frame is conditioned on the spectrum of the previous frame.
+            </p>
+
+            <b>This page is a work in progress, I will soon be adding more details about the STFT networks, the use of GRUs, and audio file/image examples</b>
+
+            <h2>References</h2>
+            <ol>
+                <li> Oord, Avd, et al. "Wavenet: A generative model for raw audio. arXiv 2016." arXiv preprint arXiv:1609.03499 (2016).</li>
+            </ol>
+            </div>
+        </div>
+	</body>
+</html>

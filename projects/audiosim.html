@@ -1,0 +1,38 @@
+<html>
+	<head>
+        <link rel="stylesheet" href="../main.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+        
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+    <title>Joe Cleveland / Projects</title>
+	</head>
+	<body>
+        <div class="container">
+            <div class="item header"><a href="../index.html">Joe Cleveland</a> / Projects</div>
+            <div class="item menu">
+                <br>
+                <a href="../projects.html">PROJECTS</a>
+                <a href="../resume.pdf">RESUME</a>
+                <a href="https://josephcleveland.bandcamp.com">MUSIC</a>
+            </div>
+            <div class="item content">
+                <h1>Content-based Music Similarity with Triplet Networks</h1>
+                <a href="TripletNet.pdf">For the technical details, check out the ML4MD 2020 paper</a>
+                <p>
+                Over the summers of 2019 and 2020 I've worked at Ithaca College's <a href="https://dougturnbull.org/index.php/jimilab/">Jimilab</a> researching machine learning. The team has been developing a web-app called <a href="https://localify.org">Localify</a> which generates playlists with local artists and recommends upcoming concerts in the area based on their spotify listening history.
+                </p>
+                <p>
+                Localify uses <i>Collaborative filtering (CF)</i> to generate playlists. This is quite difficult with local artists, as CF requires a large amount of user listening data. This data is very sparse for obscure local artists. To get around this issue, we have been researching the viability of using <i>Content-based (CB)</i> recommendation. With CB, we recommend songs based on how they sound compared to songs we know the user likes. This doesn't have a bias towards the number of listens a song has, and is ideally a more fair, merit-based way of recommending music.
+                </p>
+                <p>
+                In pursuit of this, we developed some initial experiments using <i>Triplet Networks</i>. Triplet Networks are good at creating simple representations of data which are easy to compare. You can read the fine details in our paper which my professor Doug Turnbull and I had the pleasure of presenting at Machine Learning for Music Discovery (ML4MD) 2020, an International Conference on Machine Learning (ICML) workshop. 
+                </p>
+            </div>
+        </div>
+	</body>
+</html>
