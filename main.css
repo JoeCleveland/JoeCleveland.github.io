@@ -11,6 +11,10 @@ a {
     text-decoration: none;
 }
 
+img {
+    zoom: 0.5;
+}
+
 .menu a {
     display: block;
     text-align: right;
