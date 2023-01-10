@@ -1,45 +1,61 @@
 <html>
-	<head>
-        <link rel="stylesheet" href="../main.css" type="text/css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-        
-<script type="text/x-mathjax-config">
+<head>
+    <link rel="stylesheet" href="../main.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+
+    <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
-</script>
+
+    </script>
+    <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
     <title>Joe Cleveland / Projects</title>
-	</head>
-	<body>
-        <div class="container">
-            <div class="item header"><a href="../index.html">Joe Cleveland</a> / Projects</div>
-            <div class="item menu">
-                <br>
-                <a href="../projects.html">PROJECTS</a>
-                <a href="../resume.pdf">RESUME</a>
-                <a href="https://josephcleveland.bandcamp.com">MUSIC</a>
-            </div>
-            <div class="item content">
-                <h1>Synthesizer Plugin</h1>
-                <img src="pluginscreenshot.png">
-                <p>
-                I've been working on a synthesizer plugin that is compatible with the major digital audio workstations (DAWs) such as Abelton Live, Logic Pro, or Pro Tools. The JUCE framework makes this headache free, as it automatically targets the two major plugin formats, Apple AU and VST. All I have to do is write the DSP and UI code. For this synthesizer I have combined elements of subtractive and physical modeling synthesis. Here are two clips of showing what the synth sounds like:
-                </p>
-                <audio controls src="SynthClip1.wav"></audio>
-                <audio controls src="SynthClip2.wav"></audio><br>
-                <p>
-                The basic element of the synthesizer is a harmonic oscillator. Using the 'Shape' control modifies the parameters $s$ in the equation 
-                $$ f(angle) = cos(tanh(sin(angle)) * S) $$
-                which adds more harmonics to the wave as $S$ is increased. To generate the wave, $angle$ is 'rotated' from $0$ to $2\pi$ at a speed depending on the frequency and sample rate. Two of the oscillators are mixed together, and their relative frequencies can be changed to create interesting beating effects.
-                </p>
-                <p>
-                An interesting feature of the synthesizer is the inclusion of a delay-line after the filter. Delay-lines are used in physical modeling synthesis in order to simulate string and wind instruments. The delay-line simply stores a buffer of the previous output samples and then has a variable amount of feedback into itself. The length of the buffer changes the 'pitch' of the delay-line. The addition of the delay-line adds interesting decaying overtones which give a natural sound. When the delay-line is very long it acts like a spring reverb effect.
-                </p>
-                <p>
-                A big design challenge has been getting the low-pass filter to sound good and run efficiently. From the cutoff and resonance/Q parameters, a frequency response curve is calculated.This curve represents which frequencies in the sound will be amplified, and which will be subtracted.This curve is then converted into an FIR filter kernel using the fast fourier transform. Designing a frequency response curve which sounds pleasing is a bit of an art form, and requires some tinkering. In order to apply the filtering, the kernel is convolved with the output signal. The convolution operation is less efficient with larger kernels, however bigger kernels sound much smoother. In order to use a large enough kernel, I may need to use SIMD instructions to perform the convolutions fast enough. 
-                </p>
-            </div>
-        </div>
-	</body>
+</head>
+<body>
+<div class="container">
+    <div class="item header"><a href="../index.html">Joe Cleveland</a> / Projects</div>
+    <div class="item menu">
+        <br>
+        <a href="../projects.html">PROJECTS</a>
+        <a href="../resume.pdf">RESUME</a>
+        <a href="https://josephcleveland.bandcamp.com">MUSIC</a>
+    </div>
+    <div class="item content">
+        <h1>Delay Line Synthesizer Plugin</h1>
+        <img src="pluginscreenshot.png">
+        <p>
+            In my last semester of college I built a synthesizer plugin in C++ that is compatible with the major digital audio workstations
+            (DAWs) such as Abelton Live, Logic Pro, or Pro Tools. The JUCE framework makes this headache free, as it
+            automatically targets the two major plugin formats, Apple AU and VST.
+            Before working on this project, I spent a good bit of time reading the work of Julius Orion Smith (CCRMA) and his work on physical models
+            using digital waveguide synthesis. <a href="https://www.osar.fr/notes/waveguides/">(Here is a cool online demo of waveguide techniques).</a><br><br>
+            Inspired by this work, I've incorporated a few delay lines with filtered feedback after each oscillator. When the length of these lines is short,
+            they make the synthesizer behave like a Karplus-Strong string synthesizer. When the delay-lines are long, they act as a sort of spring reverb effect.
+            In both cases, I think it sounds quite cool, especially when modifying the length of the lines in real-time, which you can hear in the first of
+            these sound demos:<br>
+        </p>
+        <audio controls src="SynthClip1.wav"></audio>
+        <audio controls src="SynthClip2.wav"></audio>
+        <br>
+        <p>
+            The basic element of the synthesizer is a harmonic oscillator. Using the 'Shape' control modifies the
+            parameters $s$ in the equation
+            $$ f(angle) = cos(tanh(sin(angle)) * S) $$
+            which adds more harmonics to the wave as $S$ is increased. To generate the wave, $angle$ is 'rotated' from
+            $0$ to $2\pi$ at a speed depending on the frequency and sample rate. Two of the oscillators are mixed
+            together, and their relative frequencies can be changed to create interesting beating effects.
+        </p>
+        <p>
+            A big design challenge has been getting the low-pass filter to sound good and run efficiently. From the
+            cutoff and resonance/Q parameters, a frequency response curve is calculated.This curve represents which
+            frequencies in the sound will be amplified, and which will be subtracted.This curve is then converted into
+            an FIR filter kernel using the fast fourier transform. Designing a frequency response curve which sounds
+            pleasing is a bit of an art form, and required some tinkering. In order to apply the filtering, the kernel
+            is convolved with the output signal. The convolution operation is less efficient with larger kernels,
+            however bigger kernels sound much smoother. In future work, I could imagine optimizing this calculation with SIMD instructions or OpenGL.
+        </p>
+    </div>
+</div>
+</body>
 </html>

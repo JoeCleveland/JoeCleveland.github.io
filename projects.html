@@ -1,35 +1,71 @@
 <html>
-	<head>
-        <link rel="stylesheet" href="./main.css" type="text/css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-        <title>Joe Cleveland / Projects</title>
-	</head>
-	<body>
-        <div class="container">
-            <div class="item header"><a href="index.html">Joe Cleveland</a> / Projects</div>
-            <div class="item menu">
-                <br>
-                <a href="projects.html">PROJECTS</a>
-                <a href="resume.pdf">RESUME</a>
-                <a href="https://josephcleveland.bandcamp.com">MUSIC</a>
-            </div>
-            <div class="item content">
-                <p>
-                This summer I have been working on a couple projects exploring machine learning for music and audio. I've written up the details of these projects here:<br>
-                <a href="projects/audiosim.html">Audio Similarity with Triplet Networks</a><br>
-                <a href="projects/nsm.html">Neural Synthesis Models</a><br>
-                <br>
-                And I have also been working on a plugin in C++ with the JUCE framework:<br> 
-                <a href="projects/synthplugin.html">Synthesizer Plugin for Abelton/Logic/Pro Tools</a><br><br>
-                As a student at Ithaca College I worked on a number of other software projects:<br><br>
-                <a href="https://github.com/DubThink/Guessong">Guessong</a> is a multiplayer web game I contributed to. Random songs are played and users must guess the name of the song before the other players! We wrote the backend in Python/Flask and used JQuery and Bootstrap on the frontend. Realtime client-server communication was handled with SocketIO. The audio for the songs was retrieved using the ItunesAPI. <br><br>
-                
-                <a href="https://github.com/JoeCleveland/simple-compiler">My Compiler</a> is a project I started in the summer of 2018 and got academic credit for the following semester. I implemented most of the features for a compiler for a simple C-like language. This was a huge undertaking but I learned a lot and it was really fun.<br><br>
+<head>
+    <link rel="stylesheet" href="./main.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <title>Joe Cleveland / Projects</title>
+</head>
+<body>
+<div class="container">
+    <div class="item header"><a href="index.html">Joe Cleveland</a> / Projects</div>
+    <div class="item menu">
+        <br>
+        <a href="projects.html">PROJECTS</a>
+        <a href="resume.pdf">RESUME</a>
+        <a href="https://josephcleveland.bandcamp.com">MUSIC</a>
+    </div>
+    <div class="item content">
+        <h2>JimiLab - Music Tech projects</h2>
+        <p>
+            During my two final years of undergrad, I worked at Ithaca College's music innovation lab: JimiLab.<br>
+            I worked in a number of areas related to music technology and machine learning, including recommender
+            systems, generative models, and DSP.<br>
+            You can view the details of these projects here:<br><br>
+            <a href="projects/audiosim.html">Content-based Music Similarity with Triplet Networks</a><br>
+            <a href="projects/nsm.html">Synthesis with Generative Models</a><br>
+            <a href="projects/synthplugin.html">VST Plugin - Delay-line based synthesizer</a><br><br>
+            My first summer at JimiLab, in collaboration with Arshiya Gupta, we embarked on a project to estimate
+            synthesizer settings from audio. The idea being that one could feed in a sample from their favorite
+            synth-pop song, and
+            automatically setup their synthesizer so that they could play along.
+            We ran many experiments with Convolutional Neural Networks, among other ML architectures, to predict
+            parameters
+            used to generate samples from
+            many different synthesizer types, spanning FM, Additive, Subtractive, and Physical Models. Along the way we
+            implemented an FM and Karplus-Strong synthesizer to
+            generate training data.
+            Although we did not have great results with our estimator, this project gave me a really solid foundation in
+            machine learning and DSP, which
+            contributed to greater success with the projects listed above the following year.<br><br>
 
-                The code for all these projects and a few others is available on  <a href="https://github.com/JoeCleveland">my Github profile</a>
-                </p>
-                
-            </div>
-        </div>
-	</body>
+        </p>
+        <h2>Other Programming Projects - School & Professional</h2>
+
+        <a href="https://github.com/JoeCleveland/simple-compiler">My Compiler</a> is the product of an independent study
+        in compiler design at Ithaca College.
+        Implemented in C++, it takes a C-like language and compiles it down to x86 Assembly in the MacOS MACH_O format.
+        This project gave me experience with every piece of the compiler pipeline, from designing a valid Backus-Naur
+        grammar, to lexical analysis,
+        to recursive-descent parsing, to intermediate language generation, to valid machine code generation.<br><br>
+
+        <a href="https://gorges.us/cases/clean-air-construction-the-yard/">Clean Air Construction - Portland</a> (VueJS,
+        PHP, MySQL) As a software developer at GORGES Inc, I worked as the
+        technical lead to implement the city of Portland Oregon's construction diesel emissions compliance software. We
+        successfully launched last year and have thousands of active users.
+        <br><br>
+        <a href="https://gorges.us/cases/willet-dairy/">Willet Dairy</a>(VueJS, Firebase) - Also at GORGES Inc, I was
+        the sole developer and project manager
+        for a mobile application which tracks the activity on dairy farms to compute expenditures and provide a
+        per-field and per-crop analysis of profit.
+
+        <h2>Music Projects</h2>
+
+        <a href="https://josephcleveland.bandcamp.com/album/il-soffito-di-patrizia">Il Soffitto di Patrizia</a> is a
+        full album of original music I composed in 2020, making use of euro-rack, sampling, and live drums. <br><br>
+
+        I also composed a retro-wave style score for an 80's themed short film project: <a
+            href="https://josephcleveland.bandcamp.com/album/mall-rot-original-score">Mall Rot Soundtrack</a><br>
+
+    </div>
+</div>
+</body>
 </html>
