@@ -84,6 +84,10 @@
             set. I can see why crossentropy is used for large models like wavenet, but for small models I have found it
             much easier to get pleasant sounds from MSE.
         </p>
+        <p>
+            Besides GRUs, I also experimented with a handful of other recurrent model types, such as convolutional and clockwork RNNs.
+            I didn't see dramatic improvements in quality from these, and they performed slower, so I stuck with GRUs.
+        </p>
         <a href="https://github.com/JoeCleveland/Neural-Audio-Synthesis/blob/master/GRU.ipynb">Jupyter notebook for the
             GRU model</a>
         <h2>Autoencoder</h2>
